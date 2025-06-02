@@ -35,7 +35,6 @@ Enable services running in the cloud (Hetzner) to communicate securely with my h
 Route selected Docker containers' outbound traffic through ProtonVPN, ensuring privacy and IP masking.
 
 ### Features:
-- ProtonVPN credentials passed via `.env` file
 - Containers joined to Gluetun's Docker network
 - Kill-switch behavior: if VPN drops, traffic is blocked
 
