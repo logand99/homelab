@@ -21,11 +21,11 @@ Enable services running in the cloud (Hetzner) to communicate securely with my h
 
 ### Routing Notes:
 - DNAT on UDM Pro redirects traffic destined to cloud Docker network to Gluetun (`10.1.1.2`) for Docker subnet access
-- Custom `iptables` post-rule script added to Gluetun to accept incoming connections from the home LAN
+- Custom `iptables` post-rule file added to Gluetun to accept incoming connections from the home LAN
 
 ### Files:
 - `docker-compose.home.yml`
-- `postrules.sh` — Custom iptables rule
+- `/iptables/post-rules.txt` — Custom iptables rule
 
 ---
 
