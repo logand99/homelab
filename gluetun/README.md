@@ -49,7 +49,7 @@ Route selected Docker containers' outbound traffic through ProtonVPN, ensuring p
 
 ### 1. Clone the repo and navigate to this folder:
 ```bash
-git clone https://github.com/logand99/homelab-docker-compose.git
+git clone https://github.com/logand99/homelab.git
 cd gluetun
 ```
 ### 2. Modify environment variables as needed (e.g. WireGuard config or ProtonVPN credentials)
