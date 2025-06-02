@@ -13,14 +13,14 @@ This folder contains two Docker Compose configurations for Gluetun, a containeri
 Enable services running in the cloud (Hetzner) to communicate securely with my home LAN.
 
 ### Key Components:
-- **WireGuard Server:** Hosted on Ubiquiti Dream Machine Pro (UDM Pro)
-- **Gluetun Client:** Running in Docker on a Hetzner ARM VM
+- **WireGuard Server:** Hosted on home router (Ubiquiti Dream Machine Pro in my case)
+- **Gluetun Client:** Running in Docker in the cloud
 - **Docker Network (Cloud):** `192.168.19.0/24`
 - **Home LAN:** `192.168.0.0/24`
 - **VPN Tunnel Subnet:** `10.1.1.0/24`
 
 ### Routing Notes:
-- DNAT on UDM Pro redirects traffic to Gluetun (`10.1.1.2`) for Docker subnet access
+- DNAT on UDM Pro redirects traffic destined to cloud Docker network to Gluetun (`10.1.1.2`) for Docker subnet access
 - Custom `iptables` post-rule script added to Gluetun to accept incoming connections from the home LAN
 
 ### Files:
@@ -49,5 +49,15 @@ Route selected Docker containers' outbound traffic through ProtonVPN, ensuring p
 
 ### 1. Clone the repo and navigate to this folder:
 ```bash
-git clone https://github.com/logandavis/homelab-docker-compose.git
+git clone https://github.com/logand99/homelab-docker-compose.git
 cd gluetun
+```
+### 2. Modify environment variables as needed (e.g. WireGuard config or ProtonVPN credentials)
+### 3. Start the container
+```bash
+# For WireGuard Tunnel
+docker-compose -f docker-compose.wireguard.yml up -d
+
+# For ProtonVPN Tunnel
+docker-compose -f docker-compose.protonvpn.yml up -d
+
