@@ -24,7 +24,7 @@ Enable services running in the cloud (Hetzner) to communicate securely with my h
 - Custom `iptables` post-rule script added to Gluetun to accept incoming connections from the home LAN
 
 ### Files:
-- `docker-compose.wireguard.yml`
+- `docker-compose.home.yml`
 - `postrules.sh` — Custom iptables rule
 
 ---
@@ -41,7 +41,6 @@ Route selected Docker containers' outbound traffic through ProtonVPN, ensuring p
 
 ### Files:
 - `docker-compose.protonvpn.yml`
-- `.env.example` — Template for ProtonVPN credentials
 
 ---
 
@@ -56,7 +55,7 @@ cd gluetun
 ### 3. Start the container
 ```bash
 # For WireGuard Tunnel
-docker-compose -f docker-compose.wireguard.yml up -d
+docker-compose -f docker-compose.home.yml up -d
 
 # For ProtonVPN Tunnel
 docker-compose -f docker-compose.protonvpn.yml up -d
