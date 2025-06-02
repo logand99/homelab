@@ -1,0 +1,21 @@
+services:
+  gluetun:
+    image: qmcgaw/gluetun
+    container_name: protonvpn-gluetun
+    networks:
+      home_lab_extension:
+        ipv4_address: 192.168.19.4
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    environment:
+      - VPN_SERVICE_PROVIDER=protonvpn
+      - OPENVPN_USER=<OPEN_VPN_USERNAME>
+      - OPENVPN_PASSWORD=<OPEN_VPN_PASSWORD>
+      - SERVER_COUNTRIES=United Kingdom,United States,Germany,Ireland
+
+networks:
+  home_lab_extension:
+    external: true
+    name: home_lab_extension
