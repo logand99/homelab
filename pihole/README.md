@@ -35,7 +35,7 @@ These setups are part of a distributed DNS system I use across my homelab and cl
 
 Clone this repo and navigate to the pihole folder:
 ```bash
-git clone https://github.com/logandavis/homelab-docker-compose.git
+git clone https://github.com/logand99/homelab.git
 cd pihole
 ```
 Start a Pi-hole instance:
