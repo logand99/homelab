@@ -30,7 +30,7 @@ All instances are synced using [nebula-sync]([https://github.com/paperbenni/nebu
 
 Clone this repo:
 ```bash
-git clone https://github.com/logandavis/homelab-docker-compose.git
+git clone https://github.com/logand99/homelab.git
 cd pihole
 ```
 Start a Pi-hole instance:
