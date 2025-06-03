@@ -40,7 +40,7 @@ Ingress is handled by Nginx Proxy Manager, and HTTPS is enabled via Let’s Encr
 
 ### 1. Clone the Repo
 ```bash
-git clone https://github.com/logandavis/homelab-docker-compose.git
+git clone https://github.com/logand99/homelab.git
 cd vaultwarden
 ```
 Start the Container
