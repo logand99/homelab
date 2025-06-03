@@ -62,7 +62,7 @@ Each NPM instance manages HTTPS using Let’s Encrypt, and routes to internal se
 
 ### 1. Clone the Repo
 ```bash
-git clone https://github.com/logandavis/homelab-docker-compose.git
+git clone https://github.com/logand99/homelab.git
 cd nginx-proxy-manager
 ```
 Launch an instance
