@@ -1,0 +1,20 @@
+version: '3.9'
+services:
+  tailscale:
+    image: tailscale/tailscale
+    container_name: tailscaled
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    environment:
+#      - TS_HOSTNAME=${TS_HOSTNAME} # Usually not necessary for your hostname to be the same name on the tailscale network
+#      - TS_AUTHKEY=${TS_AUTHKEY} # Generate auth keys here: https://login.tailscale.com/admin/settings/keys
+      - TS_ROUTES=192.168.0.0/24
+#      - TS_ACCEPT_DNS=${TS_ACCEPT_DNS} # Set to false for Pi-hole Docker setups
+      - TS_SOCKET=/var/run/tailscale/tailscaled.sock # Specifying the /var/lib/tailscale/tailscaled.sock location allows use of standard Tailscale commands 
+      - TS_EXTRA_ARGS=--accept-routes # Add any other supported arguments in the docker commandline style: e.g. --advertise-exit-node
+      - TS_STATE_DIR=/var/lib/tailscale # Required to create a persistent container state that will survive reboots
+    volumes:
+      - /data:/var/lib # Creates a tailscale directory under /data for persistence
+      - /dev/net/tun:/dev/net/tun
+    restart: unless-stopped
