@@ -41,7 +41,7 @@ Tailscale is deployed in two key locations:
 
 ### 1. Clone the Repo
 ```bash
-git clone https://github.com/logandavis/homelab-docker-compose.git
+git clone https://github.com/logand99/homelab.git
 cd tailscale
 ```
 Start the Tailscale Container
