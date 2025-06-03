@@ -3,7 +3,9 @@ services:
   gluetun:
     container_name: home-gluetun
     image: qmcgaw/gluetun
-    network_mode: home_lab_extension
+    networks:
+      home_lab_extension:
+        ipv4_address: 192.168.19.2
     cap_add:
       - NET_ADMIN
     privileged: true
@@ -22,3 +24,8 @@ services:
       - BLOCK_MALICIOUS=false
     volumes:
         - /iptables:/iptables
+
+networks:
+  home_lab_extension:
+    external: true
+    name: home_lab_extension
