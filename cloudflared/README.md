@@ -33,7 +33,7 @@ All exposed services are protected with **Cloudflare Access** policies:
 | Service      | Location       | Tunnel Target | Notes                                |
 |--------------|----------------|----------------|--------------------------------------|
 | Guacamole    | Raspberry Pi   | HTTPS (internal) | Used for browser-based RDP access    |
-| NTFY         | Raspberry Pi   | HTTPS (internal) | Homelab notifications over tunnel    |
+| NTFY         | Hetzner        | HTTPS (internal) | Homelab notifications over tunnel    |
 
 > Note: Nginx Proxy Manager handles local routing, TLS is managed by Cloudflare at the edge.
 
