@@ -41,7 +41,7 @@ I use Plex to:
 
 ### 1. Clone the Repo
 ```bash
-git clone https://github.com/logandavis/homelab-docker-compose.git
+git clone https://github.com/logand99/homelab.git
 cd plex
 ```
 ### 2. Set Up .env
