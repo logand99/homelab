@@ -1,0 +1,19 @@
+version: "3.3"
+services:
+  drawio:
+    container_name: drawio
+    image: jgraph/drawio
+    environment:
+      PUBLIC_DNS: drawio.cloud.logand99.com
+    networks:
+     home_lab_extension:
+       ipv4_address: 192.168.19.18
+    ports:
+      - 8080:8080
+      - 8443:8443
+    restart: unless-stopped
+
+networks:
+  home_lab_extension:
+    external: true
+    name: home_lab_extension
