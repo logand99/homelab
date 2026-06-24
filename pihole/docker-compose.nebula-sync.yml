@@ -5,8 +5,8 @@ services:
     container_name: nebula-sync
     network_mode: host
     environment:
-      - PRIMARY=http://192.168.0.232|<API_PASSWORD>
-      - REPLICAS=http://192.168.0.230|<API_PASSWORD>,http://192.168.0.121:88|<API_PASSWORD>,https://cloud-pi-hole.cloud.logand99.com|<API_PASSWORD>
+      - PRIMARY=http://172.20.10.20|<API_PASSWORD>
+      - REPLICAS=http://172.20.10.202:88|<API_PASSWORD>,http://172.20.10.203:88|<API_PASSWORD>
       - RUN_GRAVITY=false
       - FULL_SYNC=true
-      - CRON=*/2 * * * * # Set your cron schedule as you want - I like mine to update frequently
+      - CRON=*/10 * * * *
