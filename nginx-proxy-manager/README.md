@@ -58,21 +58,6 @@ Pi-hole provides local DNS resolution while NPM handles reverse proxying and rou
 
 ---
 
-## Cloudflare Integration
-
-External access to selected services is handled through Cloudflare Tunnel.
-
-Cloudflare provides:
-
-* Public DNS
-* TLS termination
-* Secure remote access
-* Protection from exposing inbound ports
-
-NPM remains responsible for internal service routing after traffic reaches the homelab.
-
----
-
 ## Features
 
 * Internal reverse proxy management
@@ -80,7 +65,6 @@ NPM remains responsible for internal service routing after traffic reaches the h
 * Centralized application access
 * Docker-based deployment
 * Integration with Pi-hole DNS
-* Integration with Cloudflare Tunnel
 
 ---
 
@@ -104,7 +88,6 @@ docker compose up -d
 ## Security Notes
 
 * No inbound ports are exposed directly to the internet for remote access.
-* External access is provided through Cloudflare Tunnel.
 * Internal services are accessed through DNS-based routing.
 * Administrative access is restricted to trusted networks and authenticated users.
 
@@ -117,7 +100,5 @@ docker compose up -d
 * Docker Compose
 * Portainer
 * Pi-hole
-* Cloudflare Tunnel
-* Cloudflare DNS
 * Raspberry Pi 5
 * Linux
