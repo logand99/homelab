@@ -1,88 +1,123 @@
-# Nginx Proxy Manager (NPM) Docker Configurations
+# Nginx Proxy Manager (NPM) Docker Configuration
 
-This folder contains Docker Compose files for all three of my Nginx Proxy Manager instances, which are used to manage reverse proxying, HTTPS, and access control across my homelab and cloud infrastructure.
+This folder contains the Docker Compose configuration for my Nginx Proxy Manager (NPM) deployment.
 
-NPM is a core part of my networking architecture — enabling secure, domain-based routing to both private and public services.
-
----
-
-## 🌐 Overview of Instances
-
-### 🏠 1. Home Network Instance
-
-- **Compose File:** `docker-compose.home.yml`
-- **Hosted On:** Raspberry Pi 5 (Docker, Portainer)
-- **Purpose:**  
-  - Provides internal HTTPS access to services via subdomains (e.g., `portainer.home.logand99.com`)
-  - Uses Let’s Encrypt for certificates
-  - Handles LAN service routing with clean URLs
+NPM serves as the internal reverse proxy for my homelab, providing centralized service routing and HTTPS access to self-hosted applications running across multiple Raspberry Pi systems.
 
 ---
 
-### ☁️ 2. Hetzner Cloud (Internal Services)
+## Overview
 
-- **Compose File:** `docker-compose.hetzner.yml`
-- **Hosted On:** CAX31 ARM VM in Hetzner Cloud
-- **Purpose:**  
-  - Routes cloud services back to my home network via VPN
-  - Container is attached to the same Docker network as my Gluetun VPN container
-  - Acts as a secure reverse proxy across a single WireGuard tunnel
+Nginx Proxy Manager is used to:
 
----
+* Route traffic to internal services
+* Provide friendly DNS-based URLs
+* Simplify reverse proxy management
+* Centralize application access
+* Manage internal HTTPS certificates
 
-### 🌍 3. Public Services Instance
+Rather than accessing services by IP address and port, applications can be reached using hostnames such as:
 
-- **Compose File:** `docker-compose.public.yml`
-- **Hosted On:** CAX11 ARM VM in Hetzner Cloud
-- **Purpose:**  
-  - Hosts multiple public-facing websites on a single public IP
-  - Works with Cloudflare DNS + WAF for security and TLS
-  - Provides HTTPS via Let’s Encrypt
-- **Sites Hosted:**  
-  - [logand99.com](https://logand99.com)  
-  - [ramblingamblinpickem.com](https://ramblingamblinpickem.com)
+```text
+portainer.home.logand99.com
+bookstack.home.logand99.com
+photoprism.home.logand99.com
+guacamole.home.logand99.com
+```
 
 ---
 
-## ⚙️ DNS & Routing Strategy
+## Current Deployment
 
-I use Cloudflare to manage DNS records and route subdomains to the appropriate NPM instance:
+### Home Network Instance
 
-| Subdomain | Points To |
-|-----------|-----------|
-| `*.home.logand99.com` | Home NPM (Pi) |
-| `*.cloud.logand99.com` | Hetzner NPM (VPN) |
-| `logand99.com`, `ramblingamblinpickem.com` | Public NPM (Cloud VM) |
+* **Compose File:** `docker-compose.yml`
+* **Hosted On:** Raspberry Pi 5
+* **Deployment Method:** Docker via Portainer
+* **Purpose:** Internal reverse proxy and service routing
 
-Each NPM instance manages HTTPS using Let’s Encrypt, and routes to internal services via Docker networking.
+This is currently the only Nginx Proxy Manager instance in my environment.
 
 ---
 
-## 📦 How to Use
+## Architecture
 
-### 1. Clone the Repo
+Traffic flows through the homelab as follows:
+
+```text
+Client Device
+      ↓
+Pi-hole DNS
+      ↓
+Nginx Proxy Manager
+      ↓
+Target Service
+```
+
+Pi-hole provides local DNS resolution while NPM handles reverse proxying and routing requests to the appropriate service.
+
+---
+
+## Cloudflare Integration
+
+External access to selected services is handled through Cloudflare Tunnel.
+
+Cloudflare provides:
+
+* Public DNS
+* TLS termination
+* Secure remote access
+* Protection from exposing inbound ports
+
+NPM remains responsible for internal service routing after traffic reaches the homelab.
+
+---
+
+## Features
+
+* Internal reverse proxy management
+* Service routing by hostname
+* Centralized application access
+* Docker-based deployment
+* Integration with Pi-hole DNS
+* Integration with Cloudflare Tunnel
+
+---
+
+## Deploying
+
+Clone the repository:
+
 ```bash
 git clone https://github.com/logand99/homelab.git
 cd nginx-proxy-manager
 ```
-Launch an instance
+
+Start Nginx Proxy Manager:
+
 ```bash
-# Home
-docker-compose -f docker-compose.home.yml up -d
-
-# Hetzner Cloud (VPN-connected)
-docker-compose -f docker-compose.hetzner.yml up -d
-
-# Public Services
-docker-compose -f docker-compose.public.yml up -d
+docker compose up -d
 ```
-⚠️ Make sure each NPM instance has its own mounted data directory for persistence.
 
-🔐 Security Notes
-Public NPM instance is secured via Cloudflare WAF — inbound access is only allowed from Cloudflare IP ranges
+---
 
-Let’s Encrypt certs are automatically provisioned and renewed
+## Security Notes
 
-All NPM containers are only accessible via defined IPs or tunnels (depending on role)
+* No inbound ports are exposed directly to the internet for remote access.
+* External access is provided through Cloudflare Tunnel.
+* Internal services are accessed through DNS-based routing.
+* Administrative access is restricted to trusted networks and authenticated users.
 
-Ensure proper rate limiting and authentication for public admin panels
+---
+
+## Technologies Used
+
+* Nginx Proxy Manager
+* Docker
+* Docker Compose
+* Portainer
+* Pi-hole
+* Cloudflare Tunnel
+* Cloudflare DNS
+* Raspberry Pi 5
+* Linux
