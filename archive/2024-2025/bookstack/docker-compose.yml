@@ -1,0 +1,54 @@
+---
+version: "3"
+services:
+  bookstack:
+    image: lscr.io/linuxserver/bookstack:latest
+    container_name: bookstack
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Chicago
+      - APP_URL=https://bookstack.cloud.logand99.com
+      - APP_KEY="base64:/"
+      - DB_HOST=192.168.19.17
+      - DB_PORT=3306
+      - DB_USERNAME=bookstack
+      - DB_PASSWORD=<DB PASSWORD>
+      - DB_DATABASE=bookstackapp
+      #- APP_DEBUG=true
+    volumes:
+      - /portainer/Files/AppData/Config/bookstack:/config
+    #ports:
+    #  - 6875:80
+    networks:
+     home_lab_extension:
+       ipv4_address: 192.168.19.16
+    restart: unless-stopped
+    depends_on:
+      - bookstack_db
+
+  bookstack_db:
+    image: linuxserver/mariadb
+    container_name: bookstack_db
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - MYSQL_ROOT_PASSWORD=<ROOT PASSWORD>
+      - TZ=America/Chicago
+      - MYSQL_DATABASE=bookstackapp
+      - MYSQL_USER=bookstack
+      - MYSQL_PASSWORD=<DB PASSWORD>
+    volumes:
+      - /portainer/Files/AppData/Config/bookstackdb:/config
+    #ports:
+    #  - 3306:3306
+    networks:
+     home_lab_extension:
+       ipv4_address: 192.168.19.17
+     
+    restart: unless-stopped
+    
+networks:
+  home_lab_extension:
+    external: true
+    name: home_lab_extension

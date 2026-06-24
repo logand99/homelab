@@ -1,0 +1,24 @@
+---
+services:
+  heimdall:
+    image: lscr.io/linuxserver/heimdall:latest
+    container_name: heimdall
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Chicago
+    volumes:
+      - /portainer/Files/AppData/Config/heimdall/config:/config
+    #ports:
+    #  - 80:80
+    #  - 443:443
+    networks:
+     home_lab_extension:
+       ipv4_address: 192.168.19.6
+     
+    restart: unless-stopped
+    
+networks:
+  home_lab_extension:
+    external: true
+    name: home_lab_extension

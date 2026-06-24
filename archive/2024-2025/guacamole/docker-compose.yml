@@ -1,0 +1,26 @@
+version: "3"
+services:
+  guacamole:
+    image: flcontainers/guacamole
+    container_name: guacamole
+    environment:
+      PATH: '/usr/lib/postgresql/13/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+      GUAC_VER: 1.5.0
+      GUACAMOLE_HOME: /config/guacamole
+      CATALINA_HOME: /opt/tomcat
+      PG_MAJOR: 13
+      PGDATA: /config/postgres
+      POSTGRES_USER: guacamole
+      POSTGRES_DB: guacamole_db
+      POSTGRES_HOST_AUTH_METHOD: trust
+      LC_ALL: C.UTF-8
+      LD_LIBRARY_PATH: /opt/guacamole/lib
+      GUACD_LOG_LEVEL: info
+    volumes:
+      - /portainer/Files/AppData/Config/Guacamole:/config
+    ports:
+      - 8180:8080
+    restart: unless-stopped
+volumes:
+  postgres:
+    driver: local
